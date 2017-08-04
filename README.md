@@ -34,3 +34,10 @@ Admin: `http://IP_ADDRESS:8090`.
 Storefront: `http://IP_ADDRESS:8080`.
 
 You can change mapped addresses inside docker-compose.yml.
+
+### Known Issues
+
+The following issues will require some changes to source repositories and will be addressed shortly.
+
+1. Storefront needs to be manually added under "storefront/source" in order to be able to build storefront docker image.
+2. Images are not correctly referenced in admin.
