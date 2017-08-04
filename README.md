@@ -31,6 +31,7 @@ Ethernet adapter Ethernet 2:
 ```
 
 Admin: `http://IP_ADDRESS:8090`.
+
 Storefront: `http://IP_ADDRESS:8080`.
 
 You can change mapped addresses inside docker-compose.yml.
