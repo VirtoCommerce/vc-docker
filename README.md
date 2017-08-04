@@ -1,12 +1,6 @@
 # VirtoCommerce Windows Container / Docker
 
-Key features:
-* multiple themes (full theme customization in Liquid templates)
-* dynamic content
-* B2C, B2B scenarios (quotes)
-* configurable shipping and payment options
-* SEO
-* multiple languages and currencies
+This is a repository for Virto Commerce Docker images. They allow you to quickly configure fully running Virto Commerce envirnment including storefront and administration site.
 
 # How to use these Images
 
