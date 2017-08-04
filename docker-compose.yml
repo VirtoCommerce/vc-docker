@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+
+  vc-db:
+    image: microsoft/mssql-server-windows-express
+    ports:
+      - "1433:1433"
+    environment: 
+      - ACCEPT_EULA=Y
+      - sa_password=v!rto_Labs!
+    networks:
+      - virto
+
+  vc-platform-web:
+    image: virtocommerce/platform:latest
+    ports:
+      - "8090:80"
+    environment:
+      - VIRTO_CONN_STR_VIRTOCOMMERCE=Data Source=vc-db;Initial Catalog=VirtoCommerce2;Persist Security Info=True;User ID=sa;Password=v!rto_Labs!;MultipleActiveResultSets=True;Connect Timeout=30;
+    depends_on:
+      - vc-db
+    build: .
+    networks:
+      - virto
+
+  vc-storefront-web:
+    image: virtocommerce/storefront:latest
+    ports:
+      - "8080:80"
+    depends_on:
+      - vc-platform-web
+    build: .
+    networks:
+      - virto
+
+networks:
+  virto:
+    external:
+      name: nat
