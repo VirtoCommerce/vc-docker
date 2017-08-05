@@ -8,7 +8,6 @@ Copy `docker-compose.yml` to your app directory. You would then be able to run t
 
 ```
 $ docker-compose up -d
-$ docker-compose start
 ```
 
 ### Verify in the browser
