@@ -4,9 +4,10 @@ FROM microsoft/aspnet:4.6.2
 MAINTAINER Alexander Siniouguine <support@virtocommerce.com>
 
 # Download latest platform release
-ADD https://github.com/VirtoCommerce/vc-platform/releases/download/v2.13.14/VirtoCommerce.Platform.2.13.14.zip /VirtoCommerce.Platform.zip
-RUN powershell -Command Expand-Archive VirtoCommerce.Platform.zip -DestinationPath C:\vc-platform
-#COPY source c:\vc-platform
+RUN $var=Invoke-RestMethod -Method Get -Uri https://api.github.com/repos/virtocommerce/vc-platform/releases/latest | select -ExpandProperty assets | ? { $_.name.Contains('VirtoCommerce.Platform')} | select -expand browser_download_url; wget $var -OutFile c:\VirtoCommerce.Platform.zip
+RUN powershell.exe -Command `
+    Expand-Archive VirtoCommerce.Platform.zip -DestinationPath C:\vc-platform; `
+    Remove-Item c:\VirtoCommerce.Platform.zip -Force
 
 # Configure website
 RUN Remove-Website -Name 'Default Web Site'; `  
