@@ -12,22 +12,16 @@ $ docker-compose up -d
 
 ### Verify in the browser
 
-Once the container starts, you'll need to finds your computer IP address so that you can connect to your running container from a browser. You use the `ipconfig` command to do that:
+Once the container starts, you'll need to finds its IP address so that you can connect to your running container from a browser. You use the docker inspect command to do that:
 
-`ipconfig`
+docker inspect -f "{{ .NetworkSettings.Networks.nat.IPAddress }}" docker_vc-platform-web_1
 
 You will see an output similar to this:
 
-```
-Ethernet adapter Ethernet 2:
+172.28.103.186
 
-   Connection-specific DNS Suffix  . : attlocal.net
-   IPv6 Address. . . . . . . . . . . : 2605:304:ce8c:8c23:3119:24e1:13e2:a1de
-   Temporary IPv6 Address. . . . . . : 2604:304:ce8c:8c23:24a9:9s71:9779:4325
-   Link-local IPv6 Address . . . . . : fe82::3248:23e1:12e1:a4de%10
-   IPv4 Address. . . . . . . . . . . : 192.168.1.101
-   Subnet Mask . . . . . . . . . . . : 255.255.255.0
-```
+You can connect the running container using the IP address and configured port, http://172.28.103.186:8090 in the example shown.
+
 
 Admin: `http://IP_ADDRESS:8090`.
 
