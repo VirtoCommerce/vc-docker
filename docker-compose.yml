@@ -21,7 +21,6 @@ services:
       - VIRTO_CONN_STR_AssetsConnectionString=provider=LocalStorage;rootPath=~/App_Data/Assets;publicUrl=http://192.168.1.107:8090/assets
     depends_on:
       - vc-db
-    build: .
     networks:
       - virto
 
@@ -33,7 +32,6 @@ services:
       - VIRTO_CONN_STR_VirtoCommerceBaseUrl=http://vc-platform-web
     depends_on:
       - vc-platform-web
-    build: .
     networks:
       - virto
 
