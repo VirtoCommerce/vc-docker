@@ -14,8 +14,9 @@ RUN powershell.exe -Command `
 # ADD https://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x64.exe /vc_redist.x64.exe
 # ADD https://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x86.exe /vc_redist.x86.exe
 RUN Invoke-WebRequest "https://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x86.exe" -OutFile "c:\vc_redist.x86.exe"
+RUN Invoke-WebRequest "https://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x64.exe" -OutFile "c:\vc_redist.x64.exe"
 
-#RUN C:\vc_redist.x64.exe /quiet /install
+RUN C:\vc_redist.x64.exe /quiet /install
 RUN C:\vc_redist.x86.exe /quiet /install
 
 # Configure website
