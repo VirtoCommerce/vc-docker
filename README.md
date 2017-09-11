@@ -10,6 +10,8 @@ Copy `docker-compose.yml` to your app directory. You would then be able to run t
 $ docker-compose up -d
 ```
 
+PS: make sure to run "docker-compose pull" to get the latest version of the docker images from the registry if you already ran docker before.
+
 ### Verify in the browser
 
 Once the container starts, you'll need to finds its IP address so that you can connect to your running container from a browser. You use the docker inspect command to do that:
