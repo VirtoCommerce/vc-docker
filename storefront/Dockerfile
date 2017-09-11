@@ -10,16 +10,6 @@ RUN powershell.exe -Command `
     Expand-Archive VirtoCommerce.StoreFront.zip -DestinationPath C:\vc-storefront; `
     Remove-Item c:\VirtoCommerce.StoreFront.zip -Force
 
-# Install Visual C++ 2017 Redistributable Packages
-#RUN Invoke-WebRequest "https://go.microsoft.com/fwlink/?LinkId=746571" -OutFile "c:\vc_redist.x86.exe"
-#RUN Invoke-WebRequest "https://go.microsoft.com/fwlink/?LinkId=746572" -OutFile "c:\vc_redist.x64.exe"
-
-# Install Visual C++ 2015 Redistributable Packages
-#RUN Invoke-WebRequest "https://download.microsoft.com/download/6/D/F/6DF3FF94-F7F9-4F0B-838C-A328D1A7D0EE/vc_redist.x86.exe" -OutFile "c:\vc_redist.x86.exe"
-#RUN Invoke-WebRequest "https://download.microsoft.com/download/6/D/F/6DF3FF94-F7F9-4F0B-838C-A328D1A7D0EE/vc_redist.x64.exe" -OutFile "c:\vc_redist.x64.exe"
-
-# Install Visual C++ 2013 Redistributable Packages
-#RUN Invoke-WebRequest "https://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x86.exe" -OutFile "c:\vc_redist.x86.exe"
 RUN Invoke-WebRequest "https://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x64.exe" -OutFile "c:\vc_redist.x64.exe"
 
 RUN powershell start-process C:\vc_redist.x64.exe -ArgumentList '/quiet' -Wait
