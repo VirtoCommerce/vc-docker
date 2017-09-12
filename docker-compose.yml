@@ -21,6 +21,8 @@ services:
       - VIRTO_CONN_STR_AssetsConnectionString=provider=LocalStorage;rootPath=~/App_Data/Assets;publicUrl=http://ci.virtocommerce.com:${DOCKER_PLATFORM_PORT:-8090}/assets
     depends_on:
       - vc-db
+    volumes:
+      - cms-content-volume:c:\vc-platform\App_Data\cms-content
     networks:
       - virto
 
@@ -32,9 +34,14 @@ services:
       - VIRTO_CONN_STR_VirtoCommerceBaseUrl=http://vc-platform-web
     depends_on:
       - vc-platform-web
+    volumes:
+      - cms-content-volume:c:\vc-storefront\App_Data\cms-content
     networks:
       - virto
 
+volumes:
+  cms-content-volume:
+  
 networks:
   virto:
     external:
