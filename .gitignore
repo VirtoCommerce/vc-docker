@@ -4,3 +4,6 @@
 
 /.vs
 /storefront/source
+/*.bat
+/*.txt
+/*.ps1
