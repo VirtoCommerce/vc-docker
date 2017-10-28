@@ -1,0 +1,1 @@
+docker run -p 8181:80 -e VirtoCommerce:Endpoint:Url=http://192.168.1.107/admin -e ASPNETCORE_ENVIRONMENT='Development' vccore 
