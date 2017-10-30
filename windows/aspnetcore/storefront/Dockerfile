@@ -11,18 +11,18 @@ RUN powershell.exe -Command `
     Remove-Item c:\VirtoCommerce.StoreFront.zip -Force
 
 # download latest default theme
-RUN $var=Invoke-RestMethod -Method Get -Uri https://api.github.com/repos/virtocommerce/vc-theme-default/releases/latest | select -ExpandProperty assets | ? { $_.name.Contains('vc-default-theme')} | select -expand browser_download_url; Invoke-WebRequest $var -OutFile c:\vc-default-theme.zip
+# RUN $var=Invoke-RestMethod -Method Get -Uri https://api.github.com/repos/virtocommerce/vc-theme-default/releases/latest | select -ExpandProperty assets | ? { $_.name.Contains('vc-default-theme')} | select -expand browser_download_url; Invoke-WebRequest $var -OutFile c:\vc-default-theme.zip
 
-RUN powershell.exe -Command `
-    Expand-Archive vc-default-theme.zip -DestinationPath C:\vc-storefront\wwwroot\cms-content\themes\electronics; `
-    Remove-Item c:\vc-default-theme.zip -Force
+# RUN powershell.exe -Command `
+#     Expand-Archive vc-default-theme.zip -DestinationPath C:\vc-storefront\wwwroot\cms-content\themes\electronics; `
+#     Remove-Item c:\vc-default-theme.zip -Force
 
 # download latest material theme
-RUN $var=Invoke-RestMethod -Method Get -Uri https://api.github.com/repos/virtocommerce/vc-theme-material/releases/latest | select -ExpandProperty assets | ? { $_.name.Contains('vc-material-theme')} | select -expand browser_download_url; Invoke-WebRequest $var -OutFile c:\vc-theme-material.zip
+# RUN $var=Invoke-RestMethod -Method Get -Uri https://api.github.com/repos/virtocommerce/vc-theme-material/releases/latest | select -ExpandProperty assets | ? { $_.name.Contains('vc-material-theme')} | select -expand browser_download_url; Invoke-WebRequest $var -OutFile c:\vc-theme-material.zip
 
-RUN powershell.exe -Command `
-    Expand-Archive vc-theme-material.zip -DestinationPath C:\vc-storefront\wwwroot\cms-content\themes\clothing; `
-    Remove-Item c:\vc-theme-material.zip -Force
+# RUN powershell.exe -Command `
+#     Expand-Archive vc-theme-material.zip -DestinationPath C:\vc-storefront\wwwroot\cms-content\themes\clothing; `
+#     Remove-Item c:\vc-theme-material.zip -Force
 
 WORKDIR /vc-storefront
 COPY libs\x64\msvcp140.dll c:\windows\system32

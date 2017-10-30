@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+
+  vc-db:
+    image: microsoft/mssql-server-windows-express
+    ports:
+      - "${DOCKER_SQL_PORT:-1433}:1433"
+    environment: 
+      - ACCEPT_EULA=Y
+      - sa_password=v!rto_Labs!
+    networks:
+      - virto
+
+  vc-platform-web:
+    image: virtocommerce/platform:${DOCKER_TAG:-latest}
+    ports:
+      - "${DOCKER_PLATFORM_PORT:-8090}:80"
+    environment:
+      - VIRTO_CONN_STR_VIRTOCOMMERCE=Data Source=vc-db;Initial Catalog=VirtoCommerce2;Persist Security Info=True;User ID=sa;Password=v!rto_Labs!;MultipleActiveResultSets=True;Connect Timeout=30;
+      - VIRTO_CONN_STR_AssetsConnectionString=provider=LocalStorage;rootPath=~/App_Data/Assets;publicUrl=http://192.168.1.107:${DOCKER_PLATFORM_PORT:-8090}/assets
+    depends_on:
+      - vc-db
+    volumes:
+      - cms-content-volume:c:\vc-platform\App_Data\cms-content
+    networks:
+      - virto
+
+  vc-storefront-web:
+    image: virtocommerce/storefront-core:${DOCKER_TAG:-latest}
+    ports:
+      - "${DOCKER_STOREFRONT_PORT:-8080}:80"
+    environment:
+      - VirtoCommerce:Endpoint:Url=http://vc-platform-web
+    depends_on:
+      - vc-platform-web
+    volumes:
+      - cms-content-volume:C:\vc-storefront\wwwroot\cms-content
+    networks:
+      - virto
+
+volumes:
+  cms-content-volume:
+
+networks:
+  virto:
+    external:
+      name: nat

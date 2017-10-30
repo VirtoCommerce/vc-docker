@@ -1,6 +1,6 @@
-# VirtoCommerce Windows Container / Docker
+# VirtoCommerce Containers / Docker
 
-This is a repository for Virto Commerce Docker images. They allow you to quickly configure fully running Virto Commerce envirnment including storefront and administration site. You can also use dockerfiles to create your own custom images.
+This is a repository for Virto Commerce Docker images. They allow you to quickly configure fully running Virto Commerce environment including storefront and administration site. You can also use docker files to create your own custom images.
 
 # How to use these Images
 
