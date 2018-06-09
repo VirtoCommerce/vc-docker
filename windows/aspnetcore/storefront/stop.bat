@@ -1,1 +1,1 @@
-powershell -command "'docker rm $(docker ps -q) -f'"
+powershell -command "'docker rm $(docker ps -q) -f -v'"
