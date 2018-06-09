@@ -1,6 +1,6 @@
 # escape=`
 # Build runtime image
-FROM microsoft/aspnetcore:2.1
+FROM microsoft/dotnet:2.1-aspnetcore-runtime
 MAINTAINER Alexander Siniouguine <support@virtocommerce.com>
 
 # download latest release
