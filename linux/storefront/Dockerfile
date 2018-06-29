@@ -3,12 +3,19 @@
 FROM microsoft/dotnet:2.1-aspnetcore-runtime
 MAINTAINER Alexander Siniouguine <support@virtocommerce.com>
 
-# download latest release
-RUN $var=Invoke-RestMethod -Method Get -Uri https://api.github.com/repos/virtocommerce/vc-storefront-core/releases/latest | select -ExpandProperty assets | ? { $_.name.Contains('VirtoCommerce.StoreFront')} | select -expand browser_download_url; wget $var -OutFile c:\VirtoCommerce.StoreFront.zip
+# Install unzip
+RUN apt-get update && apt-get install -y unzip
+RUN apt-get update -qq `
+&& apt-get install -y wget
 
-RUN powershell.exe -Command `
-    Expand-Archive VirtoCommerce.StoreFront.zip -DestinationPath C:\vc-storefront-core; `
-    Remove-Item c:\VirtoCommerce.StoreFront.zip -Force
+RUN mkdir -p /vc-storefront `
+    && curl -s https://api.github.com/repos/virtocommerce/vc-storefront-core/releases/latest `
+	| grep "browser_download_url.*zip" `
+	| cut -d : -f 2,3 `
+	| tr -d \" `
+	| wget -qi - `
+	&& sh -c 'unzip -q -d /vc-storefront "*.zip"' `
+	&& sh -c 'rm *.zip'
 
-WORKDIR /vc-storefront-core
+WORKDIR /vc-storefront
 ENTRYPOINT ["dotnet", "VirtoCommerce.Storefront.dll"]
