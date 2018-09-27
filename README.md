@@ -33,6 +33,7 @@ You can change mapped addresses inside docker-compose.yml.
 ### Troubleshooting Docker Instances
 
 To see running instances run `docker ps` 
+
 To connect to specific instance run `docker exec -it vcdocker_vc-platform-web_1 cmd`
 
 ### Known Issues
