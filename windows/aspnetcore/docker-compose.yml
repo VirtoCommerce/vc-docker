@@ -35,7 +35,7 @@ services:
     depends_on:
       - vc-platform-web
     volumes:
-      - cms-content-volume:C:\vc-storefront-core\wwwroot\cms-content
+      - cms-content-volume:C:\vc-storefront\wwwroot\cms-content
     networks:
       - virto
 
