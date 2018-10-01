@@ -4,7 +4,7 @@ This is a repository for Virto Commerce Docker images. They allow you to quickly
 
 # How to use these Images
 
-Copy `docker-compose.yml` to your app directory. You would then be able to run the sites from the app directory.
+Copy [docker-compose.yml](https://github.com/VirtoCommerce/vc-docker/blob/master/windows/aspnetcore/docker-compose.yml) to your app directory. You would then be able to run the sites from the app directory.
 
 ```
 $ docker-compose up -d
@@ -29,6 +29,12 @@ Admin: `http://HOST_IP_ADDRESS:8090`.
 Storefront: `http://HOST_IP_ADDRESS:8080`.
 
 You can change mapped addresses inside docker-compose.yml.
+
+### Troubleshooting Docker Instances
+
+To see running instances run `docker ps` 
+
+To connect to specific instance run `docker exec -it vcdocker_vc-platform-web_1 cmd`
 
 ### Known Issues
 

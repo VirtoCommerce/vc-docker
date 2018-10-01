@@ -1,7 +1,6 @@
 # escape=`
 # Build runtime image
 FROM microsoft/dotnet:2.1-aspnetcore-runtime
-MAINTAINER Alexander Siniouguine <support@virtocommerce.com>
 
 #download JQ / json tool
 RUN curl.exe -o jq.exe "https://github.com/stedolan/jq/releases/download/jq-1.5/jq-win64.exe" -L
