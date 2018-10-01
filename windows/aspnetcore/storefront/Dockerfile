@@ -3,16 +3,19 @@
 FROM microsoft/dotnet:2.1-aspnetcore-runtime
 MAINTAINER Alexander Siniouguine <support@virtocommerce.com>
 
-# download latest release
-RUN $var=Invoke-RestMethod -Method Get -Uri https://api.github.com/repos/virtocommerce/vc-storefront-core/releases/latest | select -ExpandProperty assets | ? { $_.name.Contains('VirtoCommerce.StoreFront')} | select -expand browser_download_url; Invoke-WebRequest $var -OutFile c:\VirtoCommerce.StoreFront.zip
+#download JQ / json tool
+RUN curl.exe -o jq.exe "https://github.com/stedolan/jq/releases/download/jq-1.5/jq-win64.exe" -L
 
-RUN powershell.exe -Command `
-    Expand-Archive VirtoCommerce.StoreFront.zip -DestinationPath C:\vc-storefront-core; `
-    Remove-Item c:\VirtoCommerce.StoreFront.zip -Force
-	
-RUN Invoke-WebRequest "https://go.microsoft.com/fwlink/?LinkId=746572" -OutFile "c:\vc_redist.x64.exe"
+# download and unzip latest release, nano doesn't support powershell, so use curl and tar instead
+RUN curl -s https://api.github.com/repos/virtocommerce/vc-storefront-core/releases/latest | jq -r ".assets[] | select(.name | test(\"VirtoCommerce.StoreFront\")) | .browser_download_url" > download.txt
 
-RUN powershell start-process C:\vc_redist.x64.exe -ArgumentList '/quiet' -Wait
+RUN for /f "eol=;" %i in (download.txt) do curl -o VirtoCommerce.StoreFront.zip %i -L `
+    && mkdir -p vc-storefront `
+    && tar -zxf VirtoCommerce.StoreFront.zip -C c:\vc-storefront `
+    && del VirtoCommerce.StoreFront.zip
 
-WORKDIR /vc-storefront-core
+WORKDIR /vc-storefront
+#Nano server doesn't support installs, need to copy DLLs manually
+COPY libs\x64\msvcp140.dll c:\windows\system32
+COPY libs\x64\vcruntime140.dll c:\windows\system32
 ENTRYPOINT ["dotnet", "VirtoCommerce.Storefront.dll"]
