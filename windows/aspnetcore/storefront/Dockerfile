@@ -15,6 +15,12 @@ RUN for /f "eol=;" %i in (download.txt) do curl -o VirtoCommerce.StoreFront.zip 
 
 WORKDIR /vc-storefront
 #Nano server doesn't support installs, need to copy DLLs manually
-COPY libs\x64\msvcp140.dll c:\windows\system32
-COPY libs\x64\vcruntime140.dll c:\windows\system32
+#COPY libs\x64\msvcp140.dll c:\windows\SysWOW64
+#COPY libs\x64\vcruntime140.dll c:\windows\SysWOW64
+#COPY libs\x64\concrt140.dll c:\windows\SysWOW64
+#COPY libs\x64\vccorlib140.dll c:\windows\SysWOW64
+COPY libs\x64\msvcp140.dll c:\windows\System32
+COPY libs\x64\vcruntime140.dll c:\windows\System32
+COPY libs\x64\concrt140.dll c:\windows\System32
+COPY libs\x64\vccorlib140.dll c:\windows\System32
 ENTRYPOINT ["dotnet", "VirtoCommerce.Storefront.dll"]
