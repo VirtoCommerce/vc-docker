@@ -1,0 +1,1 @@
+docker push virtocommerce/storefront-linux-core:latest

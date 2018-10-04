@@ -10,6 +10,8 @@ RUN curl -s https://api.github.com/repos/virtocommerce/vc-storefront-core/releas
 
 # we can use the following command instead of download.txt
 # echo --url "google.com" | curl --config -
+# remove unused JQ
+RUN del jq.exe
 
 RUN for /f "eol=;" %i in (download.txt) do curl -o VirtoCommerce.StoreFront.zip %i -L `
     && mkdir -p vc-storefront `
