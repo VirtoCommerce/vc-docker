@@ -18,7 +18,7 @@ services:
       - "${DOCKER_PLATFORM_PORT:-8090}:80"
     environment:
       - VIRTO_CONN_STR_VIRTOCOMMERCE=Data Source=vc-db;Initial Catalog=VirtoCommerce2;Persist Security Info=True;User ID=sa;Password=v!rto_Labs!;MultipleActiveResultSets=True;Connect Timeout=30;
-      - VIRTO_CONN_STR_AssetsConnectionString=provider=LocalStorage;rootPath=~/App_Data/Assets;publicUrl=http://ci.virtocommerce.com:${DOCKER_PLATFORM_PORT:-8090}/assets
+      - VIRTO_CONN_STR_AssetsConnectionString=provider=LocalStorage;rootPath=~/App_Data/Assets;publicUrl=http://localhost:${DOCKER_PLATFORM_PORT:-8090}/assets
     depends_on:
       - vc-db
     volumes:
