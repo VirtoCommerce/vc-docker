@@ -1,1 +1,1 @@
-docker push virtocommerce/storefront-linux-core:latest
+docker push virtocommerce/storefront:linux
