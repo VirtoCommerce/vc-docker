@@ -20,7 +20,7 @@ Replace `{your_password}` with a password.
 
 4. Navigate to `{your_local_folder}`\vc-docker\linux\platform end open **.env** file in text editor.
 5. In **DOCKER_PLATFORM_CERT_PASS={your_password}** replace `{your_password}` with a password and save changes.
-6. Execute `buildandrun.bat` to run containers.
+6. Execute `docker-compose up -d` to build and run containers.
 
 ## Verify in the browser
 

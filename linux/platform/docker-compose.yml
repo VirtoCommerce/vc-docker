@@ -17,6 +17,9 @@ services:
 
   vc-platform-web:
     image:  ${DOCKER_REGISTRY-}vc-platform-web-3
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "${DOCKER_PLATFORM_PORT:-8091}:443"
     environment:
