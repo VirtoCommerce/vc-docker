@@ -8,7 +8,7 @@ Virto Commerce Platform v3 uses HTTPS by default. HTTPS relies on certificates f
 This document describes how to use [self-signed development certificates](https://en.wikipedia.org/wiki/Self-signed_certificate) for hosting Virto Commerce Platform v3 image over localhost in Docker Desktop for Windows for Linux containers.
 
 1. Create local folder `{your_local_folder}` for Docker files.
-2. Download and extract repository.zip to crated folder.
+2. Download and extract repository.zip to created folder.
 3. Generate certificate and configure local machine:
 
 ```cmd
@@ -18,7 +18,7 @@ dotnet dev-certs https --trust
 
 Replace `{your_password}` with a password.
 
-4. Navigate to `{your_local_folder}`\vc-docker\linux\platform end open **.env** file in text editor.
+4. Navigate to `{your_local_folder}`\vc-docker\linux\platform and open **.env** file in text editor.
 5. In **DOCKER_PLATFORM_CERT_PASS={your_password}** replace `{your_password}` with a password and save changes.
 6. Execute `docker-compose up -d` to build and run containers.
 
