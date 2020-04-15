@@ -2,6 +2,11 @@
 
 This is a multi-container Docker application, that allows you to quickly configure running Virto Commerce v3 on a Linux environment. You can also use docker files to create your custom images (check issues section below before creating images).
 
+Build images:
+- docker build -t virtocommerce/platform:v3 .
+- docker build -t virtocommerce/storefront:v3 .
+
+
 ## How to use these multi-container application
 
 1. Execute `docker-compose up -d` to build and run containers.
