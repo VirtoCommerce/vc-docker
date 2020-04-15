@@ -24,9 +24,8 @@ You will see an output similar to this:
 
 You can connect the running container using the IP address and configured port, http://172.28.103.186 in the example shown. You can also reference individual containers by HOST computer ip address using addresses below:
 
-Admin: `http://HOST_IP_ADDRESS:8090`.
-
-Storefront: `http://HOST_IP_ADDRESS:8080`.
+- Admin: `http://HOST_IP_ADDRESS:8090`.
+- Storefront: `http://HOST_IP_ADDRESS:8080`.
 
 You can change mapped addresses inside docker-compose.yml.
 

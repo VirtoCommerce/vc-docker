@@ -3,8 +3,8 @@
 This is a multi-container Docker application, that allows you to quickly configure running Virto Commerce v3 on a Linux environment. You can also use docker files to create your custom images (check issues section below before creating images).
 
 Build images:
-- docker build -t virtocommerce/platform:v3 .
-- docker build -t virtocommerce/storefront:v3 .
+- `docker build -t virtocommerce/platform:v3 .`
+- `docker build -t virtocommerce/storefront:v3 .`
 
 
 ## How to use these multi-container application
@@ -15,8 +15,8 @@ Build images:
 
 Once the container starts you can connect the running container using the localhost address and configured port:
 
-Platform (Admin) - http://localhost:8090 (login:admin, password: store)
-Strofront - http://localhost:8080
+- Platform (Admin) - http://localhost:8090 (login:admin, password: store)
+- Strofront - http://localhost:8080
 
 You can change mapped addresses inside docker-compose.yml.
 
