@@ -1,0 +1,1 @@
+docker build -t virtocommerce/storefront:v3 .

@@ -1,0 +1,72 @@
+# Copyright (C) 2018-2020 Virto Solutions. All Rights Reserved.
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+version: '3.7'
+
+services:
+
+  vc-db:
+    image: mcr.microsoft.com/mssql/server:latest
+    ports:
+      - "${DOCKER_SQL_PORT:-1433}:1433"
+    expose:  
+      - 1433  
+    environment: 
+      - ACCEPT_EULA=Y
+      - MSSQL_PID=Express
+      - SA_PASSWORD=v!rto_Labs!
+    networks:
+      - virto
+
+  vc-platform-web:
+    image: virtocommerce/platform:${DOCKER_TAG:-latest}
+    ports:
+      - "${DOCKER_PLATFORM_PORT:-8090}:80"
+    environment:
+      - ASPNETCORE_URLS=http://+
+      - VirtoCommerce:AllowInsecureHttp=true
+      - ConnectionStrings:VirtoCommerce=Data Source=vc-db;Initial Catalog=VirtoCommerce3docker;Persist Security Info=True;User ID=sa;Password=v!rto_Labs!;MultipleActiveResultSets=False;
+      - Assets:FileSystem:PublicUrl=http://localhost:${DOCKER_PLATFORM_PORT:-8090}/assets/
+      - Content:FileSystem:PublicUrl=http://localhost:${DOCKER_PLATFORM_PORT:-8090}/cms-content/
+    depends_on:
+      - vc-db
+    volumes:
+      - cms-content-volume:/opt/virtocommerce/platform/wwwroot/cms-content
+    networks:
+      - virto
+
+  vc-storefront-web:
+    image: virtocommerce/storefront:${DOCKER_TAG:-latest}
+    ports:
+      - "${DOCKER_STOREFRONT_PORT:-8080}:80"
+    environment:
+      - VirtoCommerce:Endpoint:Url=http://vc-platform-web
+      - VirtoCommerce:Endpoint:UserName=admin
+      - VirtoCommerce:Endpoint:Password=store
+      - ASPNETCORE_ENVIRONMENT=Development 
+    depends_on:
+      - vc-platform-web
+    volumes:
+      - cms-content-volume:/opt/virtocommerce/storefront/wwwroot/cms-content
+    networks:
+      - virto
+
+volumes:
+  cms-content-volume:
+    name: cms-content-data
+
+networks:
+  virto:
+    external:
+      name: nat
