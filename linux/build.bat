@@ -1,1 +1,0 @@
-docker build -t virtocommerce/storefront:linux storefront
