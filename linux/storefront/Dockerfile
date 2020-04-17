@@ -1,7 +1,6 @@
 	# escape=`
 # Build runtime image
-FROM microsoft/dotnet:2.2-aspnetcore-runtime-alpine
-MAINTAINER Alexander Siniouguine <support@virtocommerce.com>
+FROM microsoft/dotnet:2.2-aspnetcore-runtime
 
 # Install unzip
 #RUN apt-get update && apt-get install -y unzip
@@ -18,8 +17,9 @@ COPY publish /opt/virtocommerce/storefront
 #	&& sh -c 'unzip -q -d /opt/virtocommerce/storefront "*.zip"' `
 #	&& sh -c 'rm *.zip'
 
-RUN apk add icu-libs
-ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
+# Uncomment this line to enable running in Alpine distributions
+# RUN apk add icu-libs
+# ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 
 RUN mkdir -p /opt/virtocommerce/storefront/wwwroot/cms-content
 WORKDIR /opt/virtocommerce/storefront
