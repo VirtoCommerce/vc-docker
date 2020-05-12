@@ -27,7 +27,7 @@ services:
       - virto
 
   vc-storefront-web:
-    image: virtocommerce/storefront:${DOCKER_TAG:-latest}
+    image: virtocommerce/storefront:${DOCKER_TAG:-dev-branch}
     ports:
       - "${DOCKER_STOREFRONT_PORT:-8080}:80"
     environment:
