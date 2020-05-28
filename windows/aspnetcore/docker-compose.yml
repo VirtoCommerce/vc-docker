@@ -3,7 +3,7 @@ version: '3'
 services:
 
   vc-db:
-    image: microsoft/mssql-server-windows-express
+    image: kkbruce/mssql-server-windows-express:windowsservercore-1809
     ports:
       - "${DOCKER_SQL_PORT:-1433}:1433"
     environment: 
@@ -31,7 +31,9 @@ services:
     ports:
       - "${DOCKER_STOREFRONT_PORT:-8080}:80"
     environment:
+      - ASPNETCORE_ENVIRONMENT:Development
       - VirtoCommerce:Endpoint:Url=http://vc-platform-web
+      - ConnectionStrings:ContentConnectionString=provider=LocalStorage;rootPath=~/cms-content
     depends_on:
       - vc-platform-web
     volumes:
@@ -44,5 +46,4 @@ volumes:
 
 networks:
   virto:
-    external:
-      name: nat
+    driver: nat
