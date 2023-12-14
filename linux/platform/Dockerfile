@@ -18,5 +18,6 @@ RUN chmod +x wait-for-it.sh
 RUN apt-get update && apt-get install -y wget fontconfig libfreetype6 libx11-6 libxcb1 libxext6 libxrender1 xfonts-75dpi xfonts-base libjpeg62-turbo
 
 WORKDIR /opt/virtocommerce/platform
-
-ENTRYPOINT ["dotnet", "VirtoCommerce.Platform.Web.dll"]
+EXPOSE 80
+ENV ASPNETCORE_HTTP_PORTS=80
+ENTRYPOINT ["dotnet", "VirtoCommerce.Platform.Web.dll"]  
