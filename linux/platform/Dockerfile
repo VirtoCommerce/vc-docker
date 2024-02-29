@@ -5,10 +5,10 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0
 #    && apt-get -yq install unzip
 
 COPY publish /opt/virtocommerce/platform
-# RUN wget -q "https://github.com/VirtoCommerce/vc-platform/releases/download/3.809.0/VirtoCommerce.Platform.3.809.0.zip"
-# RUN mkdir -p /opt/virtocommerce/platform
-# RUN unzip -q VirtoCommerce.Platform.3.809.0.zip -d /opt/virtocommerce/platform
-# RUN rm VirtoCommerce.Platform.3.809.0.zip
+# RUN wget -q "https://github.com/VirtoCommerce/vc-platform/releases/download/3.809.0/VirtoCommerce.Platform.3.809.0.zip" \
+#   && mkdir -p /opt/virtocommerce/platform \
+#   && unzip -q VirtoCommerce.Platform.3.809.0.zip -d /opt/virtocommerce/platform \
+#   && rm VirtoCommerce.Platform.3.809.0.zip
 
 # Uncomment this line to enable running in Alpine distributions
 # RUN apk add icu-libs
