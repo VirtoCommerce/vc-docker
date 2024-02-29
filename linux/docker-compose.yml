@@ -36,7 +36,7 @@ services:
     environment:
       - ASPNETCORE_URLS=http://+
       - VirtoCommerce:AllowInsecureHttp=true
-      - ConnectionStrings:VirtoCommerce=Data Source=vc-db;Initial Catalog=VirtoCommerce3docker;Persist Security Info=True;User ID=sa;Password=v!rto_Labs!;MultipleActiveResultSets=False;
+      - ConnectionStrings:VirtoCommerce=Data Source=vc-db;Initial Catalog=VirtoCommerce3docker;Persist Security Info=True;User ID=sa;Password=v!rto_Labs!;MultipleActiveResultSets=False;TrustServerCertificate=True;
       - Assets:FileSystem:PublicUrl=http://localhost:${DOCKER_PLATFORM_PORT:-8090}/assets/
       - Content:FileSystem:PublicUrl=http://localhost:${DOCKER_PLATFORM_PORT:-8090}/cms-content/
       - Search:Provider=Lucene
@@ -73,5 +73,4 @@ volumes:
 
 networks:
   virto:
-    external:
-      name: nat
+    external: true
