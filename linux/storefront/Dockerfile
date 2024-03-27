@@ -1,6 +1,6 @@
-	# escape=`
+# escape=`
 # Build runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:6.0
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
 
 # Install unzip
 #RUN apt-get update && apt-get install -y unzip
@@ -23,4 +23,6 @@ COPY publish /opt/virtocommerce/storefront
 
 RUN mkdir -p /opt/virtocommerce/storefront/wwwroot/cms-content
 WORKDIR /opt/virtocommerce/storefront
+EXPOSE 80
+ENV ASPNETCORE_HTTP_PORTS=80
 ENTRYPOINT ["dotnet", "VirtoCommerce.Storefront.dll"]
