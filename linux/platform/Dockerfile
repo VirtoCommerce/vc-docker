@@ -18,7 +18,7 @@ COPY ./wait-for-it.sh /wait-for-it.sh
 RUN chmod +x wait-for-it.sh
 RUN apt-get update && apt-get install -y wget fontconfig libfreetype6 libx11-6 libxcb1 libxext6 libxrender1 xfonts-75dpi xfonts-base libjpeg62-turbo \
   && wget http://http.us.debian.org/debian/pool/main/o/openssl/libssl3_3.0.13-1~deb12u1_amd64.deb \
-  && dpkg -i libssl3_3.0.11-1~deb12u2_amd64.deb \
+  && dpkg -i libssl3_3.0.13-1~deb12u1_amd64.deb \
   && wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-3/wkhtmltox_0.12.6.1-3.bookworm_amd64.deb \
   && dpkg -i wkhtmltox_0.12.6.1-3.bookworm_amd64.deb
 
