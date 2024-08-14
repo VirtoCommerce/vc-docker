@@ -1,6 +1,6 @@
 # VirtoCommerce Platform v3 Linux Container
 
-This is a multi-container Docker application that allows you to quickly configure Virto Commerce v3 to run in a Linux and Windows environment. You can also use docker files to create your custom images (check issues section below before creating images). The steps described below use http as the protocol for accessing the platform; if it is necessary to use https, follow the steps in the [article.](https://www.virtocommerce.org/t/how-to-use-docker-virto-commerce-platform-v3-container-with-https/159)
+This is a multi-container Docker application that allows you to quickly configure Virto Commerce v3 to run in a Linux and Windows environment. You can also use docker files to create your custom images (check issues section below before creating images).
 
 Build image command:
 - `docker build -t virtocommerce/platform:v3 .`
