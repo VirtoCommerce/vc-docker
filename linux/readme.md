@@ -2,23 +2,53 @@
 
 This is a multi-container Docker application, that allows you to quickly configure running Virto Commerce v3 on a Linux environment. You can also use docker files to create your custom images (check issues section below before creating images).
 
-Build images:
+Build an image:
 - `docker build -t virtocommerce/platform:v3 .`
-- `docker build -t virtocommerce/storefront:v3 .`
 
 
 ## How to use these multi-container application
 
-1. Execute `docker-compose up -d` to build and run containers.
-
-## Verify in the browser
-
-Once the container starts you can connect the running container using the localhost address and configured port:
-
-- Platform (Admin) - http://localhost:8090 (login:admin, password: store)
-- Strofront - http://localhost:8080
-
-You can change mapped addresses inside docker-compose.yml.
+    1. Run `docker-compose up -d` to create and run containers for the SQL Server and Virtocommerce Platform (backend).
+        From the appropriate directory (./linux/) run `docker-compose up -d`, login to the backend http://localhost:8090 (login:admin, password: store) and wait for the VirtoCommerce modules to be installed, when finished press the `restart` button. If the backend container does not start automatically, use `docker ps -a` command to get the container id and `docker start containerIdFromPreviousCommand` command to start it. Wait for the backend to be up and make your choice for the `Choose sample data type` popup, choose samples installation to get the demo data to be installed. The last step for the backend installation is to change the `admin` password. 
+    2. The frontend part should be run locally and have a connection to the backend.
+        Prerequisites for the frontend installation:
+            - Install [Node.js v20](https://nodejs.org/en/download/) (**20.11.0** or later)
+            - Enable [corepack](https://yarnpkg.com/corepack) *(run as administrator on Windows)*
+                ```bash
+                corepack enable
+                ```
+            - If you have installed `yarn` globally, uninstall it:
+            - via `npm`
+                ```bash
+                npm uninstall --global yarn
+                ```
+            - or through your Operation System installation tools
+                - `Control Panel`, `Chocolatey` or `Scoop` on *Windows*
+                - `Launchpad`, `Finder`, `Homebrew` or `MacPorts` on *macOs*
+                - Native package manager such as `apt` on *Linux*
+        Clone repository:
+            ```bash
+            git clone https://github.com/VirtoCommerce/vc-theme-b2b-vue.git "C:\vc-theme-b2b-vue\"
+            ```
+        Check yarn version:
+            ```bash
+            yarn -v
+            ```
+            `Yarn` should be of version **4.1.0** or greater, not 1.XX.
+        Install dependencies:
+            ```bash
+            yarn install
+            ```
+        Build:
+        Run with hot reload for development
+        - Add new **.env.local** file
+        - Copy **APP_BACKEND_URL** from **.env** file and change it's value to the correct endpoint to `Virto Commerce Platform`:
+            ```
+            # .env.local file
+            APP_BACKEND_URL=http://localhost:8090
+            ```
+        - Run command: `yarn dev` or `yarn dev-expose`
+        - Follow the link in the terminal. First time you'll get a white page with no content, to fix it go to backend in browser (http://localhost:8090) and set `Store URL` (Stores > B2B-store > Store URL) to `https://localhost:3000` push `Save` and refresh a frontend page. This time the frontend will display the content.
 
 ## Troubleshooting Docker Instances
 
@@ -28,6 +58,5 @@ To connect to specific instance run `docker exec -it platform_vc-platform-web_1 
 
 ## Known Issues
 
-- In order to build docker images you must copy publish folder from platform and storefront under "publish" directory.
-- Make sure to comment out all credentials (like AppId) in appsettings for storefront, otherwise storefront won't be able to connect to platform
-- Make sure to install storefront theme manually as it is currently not included in the demo data set
+- To create docker images, you will need to copy the publish folder from the platform directory.
+- If you get errors when installing VirtoCommerce modules saying that the platform version is not comparable, remove the platform image `virtocommerce/platform` marked as `latest` from local storage using `docker rmi virtocommerce/platform:latest`.

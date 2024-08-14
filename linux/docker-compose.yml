@@ -49,21 +49,21 @@ services:
     networks:
       - virto
 
-  vc-storefront-web:
-    image: virtocommerce/storefront:${DOCKER_TAG}
-    ports:
-      - "${DOCKER_STOREFRONT_PORT:-8080}:80"
-    environment:
-      - VirtoCommerce:Endpoint:Url=http://vc-platform-web
-      - VirtoCommerce:Endpoint:UserName=admin
-      - VirtoCommerce:Endpoint:Password=store
-      - ASPNETCORE_ENVIRONMENT=Development 
-    depends_on:
-      - vc-platform-web
-    volumes:
-      - cms-content-volume:/opt/virtocommerce/storefront/wwwroot/cms-content
-    networks:
-      - virto
+  # vc-storefront-web:
+  #   image: virtocommerce/storefront:${DOCKER_TAG}
+  #   ports:
+  #     - "${DOCKER_STOREFRONT_PORT:-8080}:80"
+  #   environment:
+  #     - VirtoCommerce:Endpoint:Url=http://vc-platform-web
+  #     - VirtoCommerce:Endpoint:UserName=admin
+  #     - VirtoCommerce:Endpoint:Password=store
+  #     - ASPNETCORE_ENVIRONMENT=Development 
+  #   depends_on:
+  #     - vc-platform-web
+  #   volumes:
+  #     - cms-content-volume:/opt/virtocommerce/storefront/wwwroot/cms-content
+  #   networks:
+  #     - virto
 
 volumes:
   cms-content-volume:
