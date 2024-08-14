@@ -8,8 +8,8 @@ Build an image:
 
 ## How to use these multi-container application
 
-    1. Run `docker-compose up -d` to create and run containers for the SQL Server and Virtocommerce Platform (backend).
-        From the appropriate directory (./linux/) run `docker-compose up -d`, login to the backend http://localhost:8090 (login:admin, password: store) and wait for the VirtoCommerce modules to be installed, when finished press the `restart` button. If the backend container does not start automatically, use `docker ps -a` command to get the container id and `docker start containerIdFromPreviousCommand` command to start it. Wait for the backend to be up and make your choice for the `Choose sample data type` popup, choose samples installation to get the demo data to be installed. The last step for the backend installation is to change the `admin` password. 
+    1. Run the backend part:
+        From the appropriate directory (./linux/) run `docker-compose up -d`, login to the backend http://localhost:8090 (login:admin, password: store) and wait for the VirtoCommerce modules to be installed, when finished press the `restart` button. If the backend container does not start automatically, use `docker ps -a` command to get the container id and `docker start containerIdFromPreviousCommand` command to start it. Wait for the backend to become up and make your choice for the `Choose sample data type` popup, choose samples installation to get the demo data to be installed. The last step for the backend installation is to change the `admin` password. 
     2. The frontend part should be run locally and have a connection to the backend.
         Prerequisites for the frontend installation:
             - Install [Node.js v20](https://nodejs.org/en/download/) (**20.11.0** or later)
@@ -28,7 +28,10 @@ Build an image:
                 - Native package manager such as `apt` on *Linux*
         Clone repository:
             ```bash
-            git clone https://github.com/VirtoCommerce/vc-theme-b2b-vue.git "C:\vc-theme-b2b-vue\"
+            mkdir ./vc-frontend
+            cd ./vc-frontend
+            git clone --branch master https://github.com/VirtoCommerce/vc-theme-b2b-vue.git
+            cd ./vc-theme-b2b-vue
             ```
         Check yarn version:
             ```bash
@@ -48,7 +51,8 @@ Build an image:
             APP_BACKEND_URL=http://localhost:8090
             ```
         - Run command: `yarn dev` or `yarn dev-expose`
-        - Follow the link in the terminal. First time you'll get a white page with no content, to fix it go to backend in browser (http://localhost:8090) and set `Store URL` (Stores > B2B-store > Store URL) to `https://localhost:3000` push `Save` and refresh a frontend page. This time the frontend will display the content.
+        - Follow the link in the terminal. 
+            The first time you'll get a white page with no content, to fix this go to the backend in your browser (http://localhost:8090) and set the 'Store URL' (Stores > B2B Store > Store URL) to 'https://localhost:3000', press 'Save' and refresh a frontend page. This time the frontend will show the content.
 
 ## Troubleshooting Docker Instances
 
