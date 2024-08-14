@@ -1,25 +1,25 @@
 # VirtoCommerce Platform v3 Linux Container
 
-This is a multi-container Docker application, that allows you to quickly configure running Virto Commerce v3 on a Linux environment. You can also use docker files to create your custom images (check issues section below before creating images).
+This is a multi-container Docker application that allows you to quickly configure Virto Commerce v3 to run in a Linux and Windows environment. You can also use docker files to create your custom images (check issues section below before creating images). The steps described below use http as the protocol for accessing the platform; if it is necessary to use https, follow the steps in the [article.](https://www.virtocommerce.org/t/how-to-use-docker-virto-commerce-platform-v3-container-with-https/159)
 
-Build an image:
+Build image command:
 - `docker build -t virtocommerce/platform:v3 .`
 
 
 ## How to use these multi-container application
 
     1. Run the backend part:
-        From the appropriate directory (./linux/) run `docker-compose up -d`, login to the backend http://localhost:8090 (login:admin, password: store) and wait for the VirtoCommerce modules to be installed, when finished press the `restart` button. If the backend container does not start automatically, use `docker ps -a` command to get the container id and `docker start containerIdFromPreviousCommand` command to start it. Wait for the backend to become up and make your choice for the `Choose sample data type` popup, choose samples installation to get the demo data to be installed. The last step for the backend installation is to change the `admin` password. 
+        From the appropriate directory (./linux/) run `docker-compose up -d`, login to the backend http://localhost:8090 (login:admin, password: store) and wait for the VirtoCommerce modules to be installed, when finished press the `restart` button. If the backend container does not restart automatically, use `docker ps -a` command to get the container id and `docker start containerIdFromPreviousCommand` command to start it. Wait for the backend to become up and make your choice for the `Choose sample data type` popup, choose samples installation to get the demo data to be installed. The last step for the backend installation is to change the `admin` password. 
     2. The frontend part should be run locally and have a connection to the backend.
         Prerequisites for the frontend installation:
             - Install [Node.js v20](https://nodejs.org/en/download/) (**20.11.0** or later)
             - Enable [corepack](https://yarnpkg.com/corepack) *(run as administrator on Windows)*
-                ```bash
+                ```bash/powershell
                 corepack enable
                 ```
             - If you have installed `yarn` globally, uninstall it:
             - via `npm`
-                ```bash
+                ```bash/powershell
                 npm uninstall --global yarn
                 ```
             - or through your Operation System installation tools
@@ -27,19 +27,19 @@ Build an image:
                 - `Launchpad`, `Finder`, `Homebrew` or `MacPorts` on *macOs*
                 - Native package manager such as `apt` on *Linux*
         Clone repository:
-            ```bash
+            ```bash/powershell
             mkdir ./vc-frontend
             cd ./vc-frontend
             git clone --branch master https://github.com/VirtoCommerce/vc-theme-b2b-vue.git
             cd ./vc-theme-b2b-vue
             ```
         Check yarn version:
-            ```bash
+            ```bash/powershell
             yarn -v
             ```
             `Yarn` should be of version **4.1.0** or greater, not 1.XX.
         Install dependencies:
-            ```bash
+            ```bash/powershell
             yarn install
             ```
         Build:
@@ -50,7 +50,7 @@ Build an image:
             # .env.local file
             APP_BACKEND_URL=http://localhost:8090
             ```
-        - Run command: `yarn dev` or `yarn dev-expose`
+        - Run command: `yarn dev` or `yarn dev-expose` (on windows for the first run the Security Warning about the certificate is shown, need to confirm the installation)
         - Follow the link in the terminal. 
             The first time you'll get a white page with no content, to fix this go to the backend in your browser (http://localhost:8090) and set the 'Store URL' (Stores > B2B Store > Store URL) to 'https://localhost:3000', press 'Save' and refresh a frontend page. This time the frontend will show the content.
 
@@ -63,4 +63,4 @@ To connect to specific instance run `docker exec -it platform_vc-platform-web_1 
 ## Known Issues
 
 - To create docker images, you will need to copy the publish folder from the platform directory.
-- If you get errors when installing VirtoCommerce modules saying that the platform version is not comparable, remove the platform image `virtocommerce/platform` marked as `latest` from local storage using `docker rmi virtocommerce/platform:latest`.
+- If you get errors when installing VirtoCommerce modules saying that the platform version is not comparable, remove the platform image `virtocommerce/platform` marked as `latest` from local storage using `docker rmi virtocommerce/platform:latest` and run compose again to fetch fresh image.
