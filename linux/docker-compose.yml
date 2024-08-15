@@ -35,7 +35,7 @@ services:
       - "${DOCKER_PLATFORM_PORT:-8091}:443"
     environment:
       - ASPNETCORE_URLS=https://+:443 #;http://+:80
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=Pa$$word!
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=Password1!
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
       - VirtoCommerce:AllowInsecureHttp=true
       - ConnectionStrings:VirtoCommerce=Data Source=vc-db;Initial Catalog=VirtoCommerce3docker;Persist Security Info=True;User ID=sa;Password=v!rto_Labs!;MultipleActiveResultSets=False;TrustServerCertificate=True;
