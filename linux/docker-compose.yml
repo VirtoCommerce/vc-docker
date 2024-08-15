@@ -12,7 +12,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-version: '3.7'
 
 services:
 
@@ -32,13 +31,16 @@ services:
   vc-platform-web:
     image: virtocommerce/platform:${DOCKER_TAG}
     ports:
-      - "${DOCKER_PLATFORM_PORT:-8090}:80"
+      # - "${DOCKER_PLATFORM_PORT:-8090}:80"
+      - "${DOCKER_PLATFORM_PORT:-8091}:443"
     environment:
-      - ASPNETCORE_URLS=http://+
+      - ASPNETCORE_URLS=https://+:443 #;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=Pa$$word!
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
       - VirtoCommerce:AllowInsecureHttp=true
       - ConnectionStrings:VirtoCommerce=Data Source=vc-db;Initial Catalog=VirtoCommerce3docker;Persist Security Info=True;User ID=sa;Password=v!rto_Labs!;MultipleActiveResultSets=False;TrustServerCertificate=True;
-      - Assets:FileSystem:PublicUrl=http://localhost:${DOCKER_PLATFORM_PORT:-8090}/assets/
-      - Content:FileSystem:PublicUrl=http://localhost:${DOCKER_PLATFORM_PORT:-8090}/cms-content/
+      - Assets:FileSystem:PublicUrl=https://localhost:${DOCKER_PLATFORM_PORT:-8091}/assets/
+      - Content:FileSystem:PublicUrl=https://localhost:${DOCKER_PLATFORM_PORT:-8091}/cms-content/
       - Search:Provider=Lucene
     depends_on:
       - vc-db
@@ -46,6 +48,7 @@ services:
     volumes:
       - cms-content-volume:/opt/virtocommerce/platform/wwwroot/cms-content
       - modules-volume:/opt/virtocommerce/platform/modules
+      - ~\.aspnet\https:/https:ro
     networks:
       - virto
 

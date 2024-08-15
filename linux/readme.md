@@ -8,13 +8,19 @@ Build command for custom image:
 
 
 ## How to use these multi-container application
-
+    0. Setup 
     1. Run the backend part:
-        Clone `vc-docker` repository.
+        clone `vc-docker` repository.
             mkdir ./vc-backend
             cd ./vc-backend
             git clone --branch feat/net8 https://github.com/VirtoCommerce/vc-docker.git
-        From the appropriate directory (./linux/) run `docker-compose up -d`, login to the backend http://localhost:8090 (login:admin, password: store) and wait for the VirtoCommerce modules to be installed, when finished press the `restart` button. 
+            cd .\vc-docker\linux\
+        create a network for backend:
+            docker network create virto
+        create a dev certificate to use by backend ([more details](https://learn.microsoft.com/en-us/aspnet/core/security/docker-compose-https?view=aspnetcore-8.0)):
+            dev-certs https -ep "~\.aspnet\https\aspnetapp.pfx"  -p Pa$$word!
+            dev-certs https --trust
+        run `docker-compose up -d`, login to the backend http://localhost:8090 (login:admin, password: store) and wait for the VirtoCommerce modules to be installed, when finished press the `restart` button. 
         If the backend container does not restart automatically, use `docker ps -a` command to get the container id and `docker start containerIdFromPreviousCommand` command to start it. 
         Wait for the backend to become up and make your choice for the `Choose sample data type` popup, choose samples installation to get the demo data to be installed. 
         The last step for the backend installation is to change the `admin` password. 
