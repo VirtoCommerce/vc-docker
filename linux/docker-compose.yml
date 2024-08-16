@@ -48,7 +48,7 @@ services:
     volumes:
       - cms-content-volume:/opt/virtocommerce/platform/wwwroot/cms-content
       - modules-volume:/opt/virtocommerce/platform/modules
-      - ~\.aspnet\https:/https:ro
+      - ~/.aspnet/https:/https:ro
     networks:
       - virto
 

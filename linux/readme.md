@@ -28,21 +28,36 @@ Before stating the setup process ensure that your system have needed software in
 
         `git clone --branch VCST-1654 https://github.com/VirtoCommerce/vc-docker.git`
 
-        `cd .\vc-docker\linux\`
+        `cd ./vc-docker/linux/`
 
     - create a network for backend:
 
-        `docker network create virto`
+        `docker network create virto` *on Linux may require root priveleges*
 
     - create a dev certificate for backend ([more details](https://learn.microsoft.com/en-us/aspnet/core/security/docker-compose-https?view=aspnetcore-8.0)) 
     
         .Net SDK should be installed to run commands:
-     
-        `dotnet dev-certs https -ep "$env:userprofile\.aspnet\https\aspnetapp.pfx"  -p 'Password1!'`
 
-        `dotnet dev-certs https --trust` # this command on Windows shows the Security Warning about the certificate, need to confirm the installation
+        *for Windows:*
 
-    - run `docker-compose up -d`
+        `dotnet dev-certs https -ep "$env:userprofile\.aspnet\https\aspnetapp.pfx" -p 'Password1!'` 
+
+        `dotnet dev-certs https --trust` # *on Windows shows the Security Warning about the certificate, need to confirm the installation*
+
+        *for Linux:*
+
+        `dotnet dev-certs https` 
+
+        `sudo -E dotnet dev-certs https -ep ${HOME}/.aspnet/https/aspnetapp.pfx -p 'Password1!' --format PFX` 
+
+        `sudo openssl pkcs12 -in ${HOME}/.aspnet/https/aspnetapp.pfx -clcerts -nokeys -out /usr/local/share/ca-certificates/aspnetapp.crt -password pass:Password1!`
+        <!-- `sudo cp ${HOME}/.aspnet/https/aspnetapp.pfx /usr/local/share/ca-certificates/aspnetapp.crt` -->
+
+        `sudo update-ca-certificates`
+
+    - edit the `docker-compose.yml` file string #51 replacing *~/.aspnet/https:/https:ro* with *%HOMEDIRECTORY%/.aspnet/https:/https:ro* *replace %HOMEDIRECTORY% placeholder with the user's home directory(can be discovered using `echo ${HOME}' command)*
+
+    - run `docker-compose up -d` *on Linux may require root priveleges*
      
     - login to the backend https://localhost:8091 (login:admin, password: store) and wait for the VirtoCommerce modules to be installed, when finished press the Restart button.
     If the backend container does not restart automatically, use `docker ps -a` command to get the container id and `docker start containerIdFromPreviousCommand` command to start it. 
@@ -79,7 +94,7 @@ Before stating the setup process ensure that your system have needed software in
 
    - check yarn version:
   
-      `yarn -v` *Yarn should be of version **4.1.0** or greater, not 1.XX.*
+      `yarn -v` *Yarn should be of version **4.1.0** or greater, not 1.XX. Confirm to allow downloading of the yarn.js script if requested*
 
    - install dependencies:
   
@@ -93,7 +108,7 @@ Before stating the setup process ensure that your system have needed software in
   
       APP_BACKEND_URL=https://localhost:8091
 
-   - run command: 
+   - start the frontend application: 
   
       `yarn dev`
 
