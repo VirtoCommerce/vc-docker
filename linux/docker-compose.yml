@@ -31,10 +31,9 @@ services:
   vc-platform-web:
     image: virtocommerce/platform:${DOCKER_TAG}
     ports:
-      # - "${DOCKER_PLATFORM_PORT:-8090}:80"
       - "${DOCKER_PLATFORM_PORT:-8091}:443"
     environment:
-      - ASPNETCORE_URLS=https://+:443 #;http://+:80
+      - ASPNETCORE_URLS=https://+:443
       - ASPNETCORE_Kestrel__Certificates__Default__Password=Password1!
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
       - VirtoCommerce:AllowInsecureHttp=true
@@ -51,22 +50,6 @@ services:
       - ~/.aspnet/https:/https:ro
     networks:
       - virto
-
-  # vc-storefront-web:
-  #   image: virtocommerce/storefront:${DOCKER_TAG}
-  #   ports:
-  #     - "${DOCKER_STOREFRONT_PORT:-8080}:80"
-  #   environment:
-  #     - VirtoCommerce:Endpoint:Url=http://vc-platform-web
-  #     - VirtoCommerce:Endpoint:UserName=admin
-  #     - VirtoCommerce:Endpoint:Password=store
-  #     - ASPNETCORE_ENVIRONMENT=Development 
-  #   depends_on:
-  #     - vc-platform-web
-  #   volumes:
-  #     - cms-content-volume:/opt/virtocommerce/storefront/wwwroot/cms-content
-  #   networks:
-  #     - virto
 
 volumes:
   cms-content-volume:

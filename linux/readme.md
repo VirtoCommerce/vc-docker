@@ -1,9 +1,9 @@
 # VirtoCommerce Platform v3 Linux Container
 
 This is a multi-container Docker application that allows you to quickly configure Virto Commerce v3 to run in a Linux or Windows environment. 
-You can also use docker files to create your custom images (check issues section below before creating images).
+You can also use docker files to create your own images (check the issues section below before creating images).
 
-Before stating the setup process ensure that your system have needed software installed:
+Before proceeding with the setup process, please ensure that you have the required software installed on your system:
 
 - [git](https://git-scm.com/downloads)
   
@@ -13,7 +13,7 @@ Before stating the setup process ensure that your system have needed software in
   
 - [.Net SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
 
-## How to use these multi-container application
+## How to use this multi-container application
 1. Run the backend part:
    
     - clone `vc-docker` repository:
@@ -30,11 +30,11 @@ Before stating the setup process ensure that your system have needed software in
 
         `cd ./vc-docker/linux/`
 
-    - create a network for backend:
+    - create a network for the backend:
 
-        `docker network create virto` *on Linux may require root priveleges*
+        `docker network create virto` *may require root privileges on Linux*
 
-    - create a dev certificate for backend ([more details](https://learn.microsoft.com/en-us/aspnet/core/security/docker-compose-https?view=aspnetcore-8.0)) 
+    - create a dev certificate for the backend ([more details](https://learn.microsoft.com/en-us/aspnet/core/security/docker-compose-https?view=aspnetcore-8.0)) 
     
         .Net SDK should be installed to run commands:
 
@@ -42,7 +42,7 @@ Before stating the setup process ensure that your system have needed software in
 
         `dotnet dev-certs https -ep "$env:userprofile\.aspnet\https\aspnetapp.pfx" -p 'Password1!'` 
 
-        `dotnet dev-certs https --trust` # *on Windows shows the Security Warning about the certificate, need to confirm the installation*
+        `dotnet dev-certs https --trust` # *on Windows will show security warning about certificate, need to confirm installation*
 
         *for Linux:*
 
@@ -55,13 +55,13 @@ Before stating the setup process ensure that your system have needed software in
 
         `sudo update-ca-certificates`
 
-    - edit the `docker-compose.yml` file string #51 replacing *~/.aspnet/https:/https:ro* with *%HOMEDIRECTORY%/.aspnet/https:/https:ro* *replace %HOMEDIRECTORY% placeholder with the user's home directory(can be discovered using `echo ${HOME}' command)*
+        edit the `docker-compose.yml` file string #51 to replace *~/.aspnet/https:/https:ro* with *%HOMEDIRECTORY%/.aspnet/https:/https:ro* *replace %HOMEDIRECTORY% placeholder with the user's home directory(can be found using `echo ${HOME}' command - e.g. /home/user)*
 
-    - run `docker-compose up -d` *on Linux may require root priveleges*
+    - run `docker-compose up -d` *on Linux you may need root privileges;* *on Windows you will see the `Docker Desktop - Filesharing` and `Windows Firewall allow communication` dialogs - accept both*
      
     - login to the backend https://localhost:8091 (login:admin, password: store) and wait for the VirtoCommerce modules to be installed, when finished press the Restart button.
-    If the backend container does not restart automatically, use `docker ps -a` command to get the container id and `docker start containerIdFromPreviousCommand` command to start it. 
-    Wait for the backend to become up and make your choice for the `Choose sample data type` popup, choose samples installation to get the demo data to be installed. 
+    If the backend container does not restart automatically, use the `docker ps -a` command to get the container id and the `docker start containerIdFromPreviousCommand` command to start it. 
+    Wait for the backend to start and make your choice for the `Choose sample data type` popup, choose samples installation to get the demo data to install. 
     - the last step for the backend installation is to change the `admin` password. 
 
     > *The frontend part should be run locally and have a connection to the backend.*
@@ -94,27 +94,27 @@ Before stating the setup process ensure that your system have needed software in
 
    - check yarn version:
   
-      `yarn -v` *Yarn should be of version **4.1.0** or greater, not 1.XX. Confirm to allow downloading of the yarn.js script if requested*
+      `yarn -v` *Yarn should be of version **4.1.0** or greater, not 1.XX. Confirm to allow download of the yarn.js script if requested*
 
-   - install dependencies:
+   - install the dependencies:
   
       `yarn install`
 
-   - copy frontend config file:
+   - copy the frontend config file:
   
       `cp ./.env ./.env.local`
 
-   - set the correct backend url in `.env.local` file
+   - set the correct backend url in the `.env.local` file
   
       APP_BACKEND_URL=https://localhost:8091
 
    - start the frontend application: 
   
-      `yarn dev`
+      `yarn dev` *on Windows a security warning will appear about installing a certificate - accept it*
 
    - go to the backend in your browser (https://localhost:8091) and set the 'Store URL' (Stores > B2B Store > Store URL) to 'https://localhost:3000', press 'Save'
   
-   - open the frontend 'https://localhost:3000' page in browser
+   - open the frontend 'https://localhost:3000' page in your browser
   
 ## Troubleshooting Docker Instances
 
@@ -124,6 +124,6 @@ To connect to specific instance run `docker exec -it platform_vc-platform-web_1 
 
 ## Known Issues
 
-To create docker images, you will need to copy the publish folder from the platform directory.
+To create Docker images, you must copy the publish folder from the platform directory.
   
-If you get errors when installing VirtoCommerce modules saying that the platform version is not comparable, remove the platform image `virtocommerce/platform` marked as `latest` from local storage using `docker rmi virtocommerce/platform:latest` and run compose again to fetch fresh image.
+If you get errors when installing VirtoCommerce modules saying that the platform version is not comparable, remove the platform image `virtocommerce/platform` marked as `latest` from local storage using `docker rmi virtocommerce/platform:latest` and run compose again to get a fresh image.
