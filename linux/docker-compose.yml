@@ -45,8 +45,8 @@ services:
       - vc-db
     entrypoint: ["/wait-for-it.sh", "vc-db:1433", "-t", "120", "--", "dotnet", "VirtoCommerce.Platform.Web.dll"]
     volumes:
-      - cms-content-volume:/opt/virtocommerce/platform/wwwroot/cms-content
-      - modules-volume:/opt/virtocommerce/platform/modules
+      - ~/vc-backend/cms-content-volume:/opt/virtocommerce/platform/wwwroot/cms-content
+      - ~/vc-backend/modules-volume:/opt/virtocommerce/platform/modules
       - ~/.aspnet/https:/https:ro
     networks:
       - virto
