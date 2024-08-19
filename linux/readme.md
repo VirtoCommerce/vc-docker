@@ -124,7 +124,9 @@ Before proceeding with the setup process, please ensure that you have the requir
 
 To see running instances run `docker ps`
 
-To connect to specific instance run `docker exec -it platform_vc-platform-web_1 bash`
+To see all instances run `docker ps -a`
+
+To connect to specific instance's shell run `docker exec -it platform_vc-platform-web_1 bash`
 
 ## Known Issues
 
@@ -143,21 +145,21 @@ To add/remove/replace a module while the solution is running, use the following 
 
 ### *on Linux:*
 
-*run the shell as root to eliminate access restrictions on docker files `sudo -s`*
+*if you get a permission denied error while executing the docker commands try runnung with `sudo` (e.g. `sudo docker ps -a`)*
 
 1. go to the backend interface and note the current version of the ApplicationInsights module (Home > More > Modules).
 
 2. go to the modules-data directory and remove the files of the current version of the module:
 
-   `cd %HOMEDIRECTORY%/vc-backend/modules-volume/VirtoCommerce.ApplicationInsights` *replace the %HOMEDIRECTORY% placeholder with the user's home directory (can be found using the `echo ${HOME}' command - e.g. /home/user)*`
+   `cd %HOMEDIRECTORY%/vc-backend/modules-volume/VirtoCommerce.ApplicationInsights` *replace the %HOMEDIRECTORY% placeholder with the user's home directory (can be found using the `echo ${HOME}` command - e.g. `/home/user`)*
 
-   `rm -r *`
+   `sudo rm -rf *`
 
 3. download the required version and extract it to the module:
 
-   `curl -LO "https://github.com/VirtoCommerce/vc-module-app-insights/releases/download/3.800.0/VirtoCommerce.ApplicationInsights_3.800.0.zip"`
+   `sudo curl -LO "https://github.com/VirtoCommerce/vc-module-app-insights/releases/download/3.800.0/VirtoCommerce.ApplicationInsights_3.800.0.zip"`
 
-   `unzip ./VirtoCommerce.ApplicationInsights_3.800.0.zip` *if your system doesn't have unzip run `apt install unzip` to install it*
+   `sudo unzip ./VirtoCommerce.ApplicationInsights_3.800.0.zip` *if your system doesn't have unzip run `apt install unzip` to install it*
    *if the module files are not available via http, just copy the needed files the appropriate local directory and move to the next step*
 
 4. clean up the `app_data/modules` directory in the running platform container:
