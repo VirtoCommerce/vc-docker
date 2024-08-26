@@ -26,7 +26,7 @@ Before proceeding with the setup process, please ensure that you have the requir
 
         <!-- `git clone --branch feat/net8 https://github.com/VirtoCommerce/vc-docker.git` -->
 
-        `git clone --branch VCST-1654 https://github.com/VirtoCommerce/vc-docker.git`
+        `git clone --branch local-run https://github.com/VirtoCommerce/vc-docker.git`
 
         `cd ./vc-docker/linux/`
 
