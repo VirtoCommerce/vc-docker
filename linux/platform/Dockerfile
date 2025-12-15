@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y \
     libxrender1 \
     xfonts-75dpi \
     xfonts-base \
-    libjpeg62-turbo \
+    libjpeg62-turbo-dev \
     libssl3 \
     && rm -rf /var/lib/apt/lists/*
 
