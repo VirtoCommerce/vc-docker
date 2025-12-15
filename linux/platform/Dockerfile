@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/aspnet:10.0-bookworm
+FROM mcr.microsoft.com/dotnet/aspnet:10.0
 
 COPY publish /opt/virtocommerce/platform
 
