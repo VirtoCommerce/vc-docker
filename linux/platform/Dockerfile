@@ -5,26 +5,13 @@ COPY publish /opt/virtocommerce/platform
 COPY ./wait-for-it.sh /wait-for-it.sh
 RUN chmod +x /wait-for-it.sh
 
-RUN apt-get update && apt-get install -y \
-    wget \
-    fontconfig \
-    libfreetype6 \
-    libx11-6 \
-    libxcb1 \
-    libxext6 \
-    libxrender1 \
-    xfonts-75dpi \
-    xfonts-base \
-    libssl3 \
-    libjpeg-turbo8 \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends wkhtmltopdf && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* && \
+    wkhtmltopdf --version
 
-RUN wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-3/wkhtmltox_0.12.6.1-3.jammy_amd64.deb \
-    && dpkg -i wkhtmltox_0.12.6.1-3.jammy_amd64.deb \
-    && apt-get -f install -y \
-    && rm wkhtmltox_0.12.6.1-3.jammy_amd64.deb \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+RUN find /opt/virtocommerce/platform/modules -path "*/bin/runtimes/linux-x64/**/*" -type f \
+    -exec cp "{}" /opt/virtocommerce/platform/app_data/modules/ \; || true
 
 WORKDIR /opt/virtocommerce/platform
 EXPOSE 80
