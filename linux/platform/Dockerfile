@@ -6,6 +6,7 @@ COPY ./wait-for-it.sh /wait-for-it.sh
 RUN chmod +x /wait-for-it.sh
 
 RUN apt-get update && \
+    apt-get upgrade -y --no-install-recommends && \
     apt-get install -y --no-install-recommends wkhtmltopdf && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     wkhtmltopdf --version
